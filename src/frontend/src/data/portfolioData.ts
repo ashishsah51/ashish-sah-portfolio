@@ -10,12 +10,12 @@ export const personalInfo = {
 };
 
 export const heroRoles = [
-  "I'm a Software Engineer",
-  "I'm a Coder",
-  "I'm an Architect",
-  "I'm a Cloud Developer",
-  "I'm an AI Enthusiast",
-  "I'm a Problem Solver",
+  "Software Engineer",
+  "Coder",
+  "Architect",
+  "Cloud Developer",
+  "AI Enthusiast",
+  "Problem Solver",
 ];
 
 export const profileSummary =

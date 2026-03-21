@@ -199,6 +199,11 @@
 }
 
 /* ─── Hero ─── */
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 @keyframes orb-float-1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(30px, -40px) scale(1.08); }
