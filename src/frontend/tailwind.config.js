@@ -18,6 +18,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
+        bricolage: ['Bricolage Grotesque', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "oklch(var(--border))",

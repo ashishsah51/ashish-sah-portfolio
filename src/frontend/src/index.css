@@ -1,5 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -143,7 +151,7 @@
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    oklch(0.48 0.17 145 / 0.06) 0%,
+    oklch(0.48 0.17 145 / 0.07) 0%,
     transparent 70%
   );
   animation: orb-float-3 10s ease-in-out infinite;
@@ -154,7 +162,7 @@
   inset: 0;
   background-image: radial-gradient(
     circle,
-    oklch(0.55 0.18 255 / 0.12) 1px,
+    oklch(0.55 0.18 255 / 0.11) 1px,
     transparent 1px
   );
   background-size: 36px 36px;
@@ -165,38 +173,53 @@
   );
   pointer-events: none;
 }
-
-/* Avatar animated ring */
-.avatar-ring-outer {
+/* Subtle scanline effect */
+.hero-scanlines {
   position: absolute;
-  inset: -12px;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    oklch(0.55 0.18 255 / 0.015) 3px,
+    oklch(0.55 0.18 255 / 0.015) 4px
+  );
+  pointer-events: none;
+}
+
+/* Avatar ring v2 — dramatic wider ring */
+.avatar-ring-outer-v2 {
+  position: absolute;
+  inset: -20px;
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    oklch(0.55 0.18 255 / 0.25) 0%,
-    transparent 70%
+    oklch(0.55 0.18 255 / 0.22) 0%,
+    transparent 65%
   );
   animation: orb-float-3 6s ease-in-out infinite;
 }
-.avatar-ring-spin {
+.avatar-ring-spin-v2 {
   position: absolute;
-  inset: -5px;
+  inset: -8px;
   border-radius: 50%;
   background: conic-gradient(
     from 0deg,
     oklch(0.55 0.18 255) 0%,
-    oklch(0.68 0.15 200) 25%,
-    transparent 50%,
-    oklch(0.55 0.18 255 / 0.3) 75%,
+    oklch(0.68 0.17 200) 20%,
+    oklch(0.72 0.17 145) 40%,
+    transparent 55%,
+    oklch(0.55 0.18 255 / 0.25) 80%,
     oklch(0.55 0.18 255) 100%
   );
   animation: avatar-ring-spin 4s linear infinite;
   z-index: 5;
+  filter: blur(1px);
 }
-.avatar-ring-spin::before {
+.avatar-ring-spin-v2::before {
   content: "";
   position: absolute;
-  inset: 4px;
+  inset: 7px;
   border-radius: 50%;
   background: oklch(0.11 0.025 255);
   z-index: 6;
@@ -206,17 +229,17 @@
 .hero-name-gradient {
   background: linear-gradient(
     135deg,
-    oklch(0.92 0.02 255) 0%,
-    #2f80ff 50%,
-    oklch(0.75 0.15 200) 100%
+    oklch(0.95 0.015 255) 0%,
+    #2f80ff 45%,
+    oklch(0.78 0.15 200) 100%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 20px oklch(0.55 0.18 255 / 0.3));
+  filter: drop-shadow(0 0 24px oklch(0.55 0.18 255 / 0.35));
 }
 
-/* Contact chips */
+/* Contact chips (kept for backward compat) */
 .contact-chip {
   display: flex;
   align-items: center;
@@ -271,6 +294,52 @@
 .stat-card:hover {
   border-color: oklch(0.55 0.18 255 / 0.45);
   box-shadow: 0 0 20px oklch(0.55 0.18 255 / 0.12);
+}
+
+/* Stat card v2 */
+.stat-card-v2 {
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+.stat-card-v2:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px oklch(0.55 0.18 255 / 0.15);
+}
+
+/* Contact bar */
+.contact-bar {
+  width: 100%;
+  padding: 14px 16px;
+  background: oklch(0.13 0.025 255 / 0.85);
+  border-top: 1px solid oklch(0.24 0.038 250 / 0.6);
+  border-bottom: 1px solid oklch(0.24 0.038 250 / 0.4);
+  backdrop-filter: blur(12px);
+}
+.contact-bar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: oklch(0.6 0.018 255);
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  cursor: default;
+}
+a .contact-bar-item {
+  cursor: pointer;
+}
+a:hover .contact-bar-item {
+  color: oklch(0.82 0.16 255);
+  background: oklch(0.55 0.18 255 / 0.1);
+  box-shadow: 0 0 12px oklch(0.55 0.18 255 / 0.15);
+}
+.contact-bar-divider {
+  color: oklch(0.3 0.02 255);
+  font-size: 14px;
+  user-select: none;
+  padding: 0 2px;
 }
 
 /* Hero buttons */
