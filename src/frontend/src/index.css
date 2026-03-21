@@ -360,6 +360,226 @@ a:hover .contact-bar-item {
   box-shadow: 0 8px 30px oklch(0.55 0.18 255 / 0.15);
 }
 
+/* ─── Hero badges ─── */
+.hero-badge-green {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 14px; border-radius: 999px;
+  font-size: 12px; font-weight: 600;
+  background: oklch(0.48 0.17 145 / 0.1);
+  border: 1px solid oklch(0.48 0.17 145 / 0.35);
+  color: oklch(0.78 0.16 145);
+  backdrop-filter: blur(8px);
+}
+.hero-badge-blue {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 14px; border-radius: 999px;
+  font-size: 12px; font-weight: 600;
+  background: oklch(0.55 0.18 255 / 0.1);
+  border: 1px solid oklch(0.55 0.18 255 / 0.35);
+  color: oklch(0.72 0.18 255);
+  backdrop-filter: blur(8px);
+}
+
+/* Contact bar icon wrap */
+.contact-bar-icon-wrap {
+  display: flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 5px;
+  background: oklch(0.55 0.18 255 / 0.15);
+  color: oklch(0.65 0.18 255);
+  flex-shrink: 0;
+}
+
+/* ─── Summary section ─── */
+.summary-edit-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 14px; border-radius: 8px; border: none; cursor: pointer;
+  font-size: 12px; font-weight: 600;
+  background: oklch(0.55 0.18 255 / 0.12);
+  border: 1px solid oklch(0.55 0.18 255 / 0.3);
+  color: oklch(0.65 0.18 255);
+  transition: all 0.2s ease; white-space: nowrap;
+}
+.summary-edit-btn:hover {
+  background: oklch(0.55 0.18 255 / 0.2);
+  border-color: oklch(0.55 0.18 255 / 0.55);
+  color: oklch(0.8 0.18 255);
+}
+.summary-save-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 14px; border-radius: 8px; border: none; cursor: pointer;
+  font-size: 12px; font-weight: 600; color: white;
+  background: linear-gradient(135deg, oklch(0.55 0.18 255) 0%, oklch(0.48 0.16 230) 100%);
+  box-shadow: 0 2px 12px oklch(0.55 0.18 255 / 0.35);
+  transition: all 0.2s ease; white-space: nowrap;
+}
+.summary-save-btn:hover { transform: translateY(-1px); }
+.summary-cancel-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 14px; border-radius: 8px; cursor: pointer;
+  font-size: 12px; font-weight: 600;
+  background: oklch(0.18 0.03 255);
+  border: 1px solid oklch(0.28 0.04 255);
+  color: oklch(0.65 0.02 255);
+  transition: all 0.2s ease; white-space: nowrap;
+}
+.summary-cancel-btn:hover { border-color: oklch(0.65 0.22 27 / 0.5); color: oklch(0.7 0.22 27); }
+.summary-textarea {
+  width: 100%; resize: none; border-radius: 12px; outline: none;
+  padding: 16px 20px; font-size: 14px; line-height: 1.7;
+  font-family: "Inter", sans-serif;
+  background: oklch(0.13 0.025 255);
+  border: 1px solid oklch(0.55 0.18 255 / 0.4);
+  color: oklch(0.84 0.018 255);
+  box-shadow: 0 0 0 3px oklch(0.55 0.18 255 / 0.08), inset 0 1px 0 oklch(1 0 0 / 0.04);
+  transition: border-color 0.2s;
+}
+.summary-textarea:focus { border-color: oklch(0.55 0.18 255 / 0.7); }
+.summary-display {
+  position: relative;
+  background: oklch(0.13 0.025 255);
+  border: 1px solid oklch(0.24 0.038 250 / 0.6);
+  border-radius: 12px; padding: 20px 24px; cursor: text;
+  transition: all 0.22s ease;
+}
+.summary-display:hover {
+  border-color: oklch(0.55 0.18 255 / 0.4);
+  background: oklch(0.14 0.028 255);
+}
+.summary-display-hint {
+  display: inline-flex; align-items: center; gap: 4px;
+  position: absolute; bottom: 12px; right: 16px;
+  font-size: 10px; font-weight: 500; opacity: 0;
+  color: oklch(0.55 0.015 255);
+  transition: opacity 0.2s;
+}
+.summary-display:hover .summary-display-hint { opacity: 1; }
+
+/* ─── Notes section ─── */
+.notes-input {
+  resize: none; border-radius: 12px; outline: none;
+  padding: 14px 18px; font-size: 13.5px; line-height: 1.65;
+  font-family: "Inter", sans-serif;
+  background: oklch(0.13 0.025 255);
+  border: 1px solid oklch(0.26 0.04 255 / 0.6);
+  color: oklch(0.84 0.018 255);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.notes-input:focus {
+  border-color: oklch(0.55 0.18 255 / 0.6);
+  box-shadow: 0 0 0 3px oklch(0.55 0.18 255 / 0.08);
+}
+.notes-input::placeholder { color: oklch(0.42 0.012 255); }
+.notes-add-btn {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  padding: 10px 18px; border-radius: 12px; border: none; cursor: pointer;
+  background: linear-gradient(135deg, oklch(0.55 0.18 255) 0%, oklch(0.48 0.16 230) 100%);
+  color: white; box-shadow: 0 2px 14px oklch(0.55 0.18 255 / 0.35);
+  transition: all 0.2s ease; min-width: 60px;
+}
+.notes-add-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 20px oklch(0.55 0.18 255 / 0.5); }
+.notes-add-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.note-card {
+  display: flex; flex-direction: column;
+  background: oklch(0.15 0.028 255);
+  border: 1px solid oklch(0.24 0.038 250 / 0.7);
+  border-radius: 14px; padding: 16px;
+  transition: all 0.22s ease;
+  position: relative;
+}
+.note-card:hover {
+  border-color: oklch(0.55 0.18 255 / 0.35);
+  box-shadow: 0 4px 20px oklch(0.55 0.18 255 / 0.08);
+  transform: translateY(-2px);
+}
+
+/* ─── Footer ─── */
+footer {
+  background: oklch(0.08 0.02 255);
+}
+.footer-top-glow {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, oklch(0.55 0.18 255 / 0.5) 30%, oklch(0.68 0.15 200 / 0.7) 60%, transparent 100%);
+}
+.footer-body {
+  padding: 60px 0 0;
+  position: relative;
+}
+.footer-body::before {
+  content: "";
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, oklch(0.55 0.18 255 / 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  padding-bottom: 48px;
+}
+@media (min-width: 640px) {
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .footer-grid { grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; }
+}
+.footer-brand-col { }
+.footer-avatar {
+  width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, oklch(0.55 0.18 255) 0%, oklch(0.42 0.16 240) 100%);
+  box-shadow: 0 0 20px oklch(0.55 0.18 255 / 0.4);
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 900; font-size: 18px; color: white; letter-spacing: -0.5px;
+}
+.footer-social-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  background: oklch(0.15 0.028 255);
+  border: 1px solid oklch(0.24 0.038 250 / 0.6);
+  color: oklch(0.58 0.018 255);
+  transition: all 0.22s ease;
+}
+.footer-social-icon:hover {
+  background: oklch(0.55 0.18 255 / 0.15);
+  border-color: oklch(0.55 0.18 255 / 0.5);
+  color: oklch(0.78 0.18 255);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px oklch(0.55 0.18 255 / 0.2);
+}
+.footer-nav-heading {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 16px;
+  color: oklch(0.55 0.18 255);
+}
+.footer-nav-link {
+  font-size: 13.5px; color: oklch(0.58 0.018 255);
+  transition: color 0.18s, padding-left 0.18s;
+  display: block;
+}
+.footer-nav-link:hover { color: oklch(0.88 0.018 255); padding-left: 4px; }
+.footer-contact-icon-wrap {
+  width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: oklch(0.55 0.18 255 / 0.12);
+  border: 1px solid oklch(0.55 0.18 255 / 0.25);
+  color: oklch(0.65 0.18 255);
+}
+.footer-availability {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-radius: 999px;
+  background: oklch(0.48 0.17 145 / 0.1);
+  border: 1px solid oklch(0.48 0.17 145 / 0.3);
+}
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, oklch(0.24 0.038 250 / 0.7) 30%, oklch(0.24 0.038 250 / 0.7) 70%, transparent);
+}
+.footer-bottom {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 24px 0 28px;
+}
+
 /* ─── Utilities ─── */
 @layer utilities {
   .timeline-dot {

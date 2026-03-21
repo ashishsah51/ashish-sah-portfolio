@@ -7,8 +7,9 @@ import {
   MessageCircle,
   Phone,
 } from "lucide-react";
-import { motion } from "motion/react";
-import { personalInfo, profileSummary } from "../../data/portfolioData";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useState } from "react";
+import { heroRoles, personalInfo } from "../../data/portfolioData";
 
 const STATS = [
   {
@@ -20,7 +21,7 @@ const STATS = [
     glow: "oklch(0.55 0.18 255 / 0.35)",
   },
   {
-    value: "2000+",
+    value: "1500+",
     label: "Problems Solved",
     bg: "oklch(0.55 0.17 145 / 0.08)",
     border: "oklch(0.55 0.17 145 / 0.45)",
@@ -28,8 +29,8 @@ const STATS = [
     glow: "oklch(0.55 0.17 145 / 0.35)",
   },
   {
-    value: "$200M+",
-    label: "Portfolio Managed",
+    value: "4",
+    label: "Certifications",
     bg: "oklch(0.72 0.18 70 / 0.08)",
     border: "oklch(0.72 0.18 70 / 0.45)",
     color: "oklch(0.82 0.18 70)",
@@ -38,12 +39,40 @@ const STATS = [
 ] as const;
 
 const CONTACT_ITEMS = [
-  { icon: Mail,     text: personalInfo.email,    href: `mailto:${personalInfo.email}` },
-  { icon: Phone,    text: personalInfo.phone,    href: undefined },
-  { icon: MapPin,   text: personalInfo.location, href: undefined },
-  { icon: Linkedin, text: "LinkedIn",            href: `https://${personalInfo.linkedin}` },
-  { icon: Github,   text: "GitHub",              href: `https://${personalInfo.github}` },
+  { icon: Mail,     text: personalInfo.email,    href: `mailto:${personalInfo.email}`, external: false },
+  { icon: Phone,    text: personalInfo.phone,    href: undefined, external: false },
+  { icon: MapPin,   text: personalInfo.location, href: undefined, external: false },
+  { icon: Linkedin, text: "LinkedIn",            href: `https://${personalInfo.linkedin}`, external: true },
+  { icon: Github,   text: "GitHub",              href: `https://${personalInfo.github}`, external: true },
 ] as const;
+
+function RotatingRole() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((i) => (i + 1) % heroRoles.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="relative h-8 sm:h-9 flex items-center justify-center overflow-hidden">
+      <AnimatePresence mode="wait">
+        <motion.p
+          key={heroRoles[index]}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.45, ease: "easeInOut" }}
+          className="absolute text-lg sm:text-xl font-semibold gradient-text whitespace-nowrap"
+        >
+          {heroRoles[index]}
+        </motion.p>
+      </AnimatePresence>
+    </div>
+  );
+}
 
 function scrollToFooter() {
   document.querySelector("#footer")?.scrollIntoView({ behavior: "smooth" });
@@ -52,9 +81,11 @@ function scrollToFooter() {
 export function Hero() {
   return (
     <>
-      {/* ── HERO SECTION ── */}
-      <section id="hero" className="relative pt-24 pb-16 sm:pt-32 sm:pb-24 px-4 sm:px-6 lg:px-10 overflow-hidden">
-        {/* Animated background orbs */}
+      <section
+        id="hero"
+        className="relative pt-24 pb-16 sm:pt-32 sm:pb-24 px-4 sm:px-6 lg:px-10 overflow-hidden"
+      >
+        {/* Animated background */}
         <div className="absolute inset-0 pointer-events-none" aria-hidden>
           <div className="hero-orb-1" />
           <div className="hero-orb-2" />
@@ -64,7 +95,7 @@ export function Hero() {
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex flex-col items-center text-center gap-8">
+          <div className="flex flex-col items-center text-center gap-7">
             {/* Status badges */}
             <motion.div
               initial={{ opacity: 0, y: -12 }}
@@ -72,35 +103,20 @@ export function Hero() {
               transition={{ duration: 0.5 }}
               className="flex flex-wrap items-center justify-center gap-3"
             >
-              <span
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-semibold"
-                style={{
-                  background: "oklch(0.48 0.17 145 / 0.12)",
-                  border: "1px solid oklch(0.48 0.17 145 / 0.4)",
-                  color: "oklch(0.78 0.16 145)",
-                }}
-              >
+              <span className="hero-badge-green">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
                 </span>
                 Open to opportunities
               </span>
-
-              <span
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-semibold"
-                style={{
-                  background: "oklch(0.55 0.18 255 / 0.1)",
-                  border: "1px solid oklch(0.55 0.18 255 / 0.35)",
-                  color: "oklch(0.72 0.18 255)",
-                }}
-              >
+              <span className="hero-badge-blue">
                 <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "oklch(0.65 0.18 255)" }} />
                 @ CloudKaptan
               </span>
             </motion.div>
 
-            {/* Avatar — styled initials */}
+            {/* Avatar */}
             <motion.div
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -117,15 +133,13 @@ export function Hero() {
                   border: "2px solid oklch(0.30 0.06 255 / 0.5)",
                 }}
               >
-                <span
-                  className="font-bricolage font-black text-5xl sm:text-6xl hero-name-gradient select-none"
-                >
+                <span className="font-bricolage font-black text-5xl sm:text-6xl hero-name-gradient select-none">
                   AS
                 </span>
               </div>
             </motion.div>
 
-            {/* Name + title */}
+            {/* Name */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -135,27 +149,15 @@ export function Hero() {
               <h1 className="font-bricolage text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-none tracking-tight hero-name-gradient">
                 {personalInfo.name}
               </h1>
-              <p className="text-lg sm:text-xl font-semibold gradient-text">
-                {personalInfo.title}
-              </p>
+              {/* Rotating role text */}
+              <RotatingRole />
             </motion.div>
-
-            {/* Tagline */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-sm sm:text-base max-w-2xl leading-relaxed"
-              style={{ color: "oklch(0.65 0.022 255)" }}
-            >
-              {profileSummary}
-            </motion.p>
 
             {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.45 }}
               className="flex flex-wrap items-center justify-center gap-3"
             >
               <button
@@ -182,7 +184,7 @@ export function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.62 }}
+              transition={{ duration: 0.6, delay: 0.58 }}
               className="grid grid-cols-3 gap-3 sm:gap-4 w-full max-w-lg"
             >
               {STATS.map((stat, i) => (
@@ -190,7 +192,7 @@ export function Hero() {
                   key={stat.label}
                   initial={{ opacity: 0, scale: 0.88 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.68 + i * 0.1 }}
+                  transition={{ duration: 0.4, delay: 0.64 + i * 0.1 }}
                   className="stat-card-v2 flex flex-col items-center py-4 px-3 rounded-2xl"
                   style={{ background: stat.bg, border: `1px solid ${stat.border}` }}
                 >
@@ -213,46 +215,36 @@ export function Hero() {
         </div>
       </section>
 
-      {/* ── CONTACT BAR ── */}
+      {/* Contact bar */}
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.9 }}
+        transition={{ duration: 0.5, delay: 0.85 }}
         className="contact-bar"
         data-ocid="contact_bar.panel"
       >
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-1 gap-y-1 px-4">
-          {CONTACT_ITEMS.map((item, i) => {
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2 px-4">
+          {CONTACT_ITEMS.map((item) => {
             const Icon = item.icon;
             const inner = (
               <span className="contact-bar-item">
-                <Icon className="w-3.5 h-3.5 shrink-0" />
+                <span className="contact-bar-icon-wrap">
+                  <Icon className="w-3 h-3" />
+                </span>
                 <span>{item.text}</span>
               </span>
             );
-            return (
-              <motion.span
+            return item.href ? (
+              <a
                 key={item.text}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.95 + i * 0.07 }}
-                className="contents"
+                href={item.href}
+                target={item.external ? "_blank" : undefined}
+                rel="noreferrer"
               >
-                {item.href ? (
-                  <a
-                    href={item.href}
-                    target={item.href.startsWith("http") ? "_blank" : undefined}
-                    rel="noreferrer"
-                  >
-                    {inner}
-                  </a>
-                ) : (
-                  inner
-                )}
-                {i < CONTACT_ITEMS.length - 1 && (
-                  <span className="contact-bar-divider" aria-hidden>·</span>
-                )}
-              </motion.span>
+                {inner}
+              </a>
+            ) : (
+              <span key={item.text}>{inner}</span>
             );
           })}
         </div>

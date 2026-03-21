@@ -4,8 +4,10 @@ import { Experience } from "./components/portfolio/Experience";
 import { Footer } from "./components/portfolio/Footer";
 import { Hero } from "./components/portfolio/Hero";
 import { Navbar } from "./components/portfolio/Navbar";
+import { Notes } from "./components/portfolio/Notes";
 import { Projects } from "./components/portfolio/Projects";
 import { Skills } from "./components/portfolio/Skills";
+import { Summary } from "./components/portfolio/Summary";
 
 export default function App() {
   return (
@@ -13,11 +15,13 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
+        <Summary />
         <Skills />
         <Experience />
         <Projects />
         <Certifications />
         <Achievements />
+        <Notes />
       </main>
       <Footer />
     </div>
