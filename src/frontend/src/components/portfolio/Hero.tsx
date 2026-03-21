@@ -57,18 +57,25 @@ function RotatingRole() {
   }, []);
 
   return (
-    <div className="relative h-8 sm:h-9 flex items-center justify-center overflow-hidden">
+    <div style={{ minHeight: "36px", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <AnimatePresence mode="wait">
-        <motion.p
-          key={heroRoles[index]}
-          initial={{ opacity: 0, y: 20 }}
+        <motion.span
+          key={index}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.45, ease: "easeInOut" }}
-          className="absolute text-lg sm:text-xl font-semibold gradient-text whitespace-nowrap"
+          exit={{ opacity: 0, y: -14 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          style={{
+            fontSize: "clamp(1rem, 2.5vw, 1.25rem)",
+            fontWeight: 600,
+            color: "#60a5fa",
+            letterSpacing: "-0.01em",
+            display: "block",
+            textAlign: "center",
+          }}
         >
           {heroRoles[index]}
-        </motion.p>
+        </motion.span>
       </AnimatePresence>
     </div>
   );
