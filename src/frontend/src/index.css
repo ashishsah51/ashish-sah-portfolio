@@ -5,55 +5,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Design tokens ─── */
 @layer base {
   :root {
     --radius: 0.75rem;
-
-    /* Portfolio dark navy theme */
-    --background: 0.11 0.023 255;
-    --foreground: 0.94 0.018 255;
-    --card: 0.15 0.028 255;
-    --card-foreground: 0.94 0.018 255;
-    --popover: 0.15 0.028 255;
-    --popover-foreground: 0.94 0.018 255;
-    --primary: 0.55 0.18 255;
-    --primary-foreground: 0.98 0 0;
-    --secondary: 0.18 0.03 255;
-    --secondary-foreground: 0.94 0.018 255;
-    --muted: 0.18 0.03 255;
-    --muted-foreground: 0.7 0.022 255;
-    --accent: 0.55 0.18 255;
-    --accent-foreground: 0.98 0 0;
-    --destructive: 0.577 0.245 27.325;
-    --destructive-foreground: 0.985 0 0;
-    --border: 0.24 0.038 250;
-    --input: 0.24 0.038 250;
-    --ring: 0.55 0.18 255;
-
-    /* Custom tokens */
-    --panel-bg: 0.135 0.027 255;
-    --hero-bg-start: #0b1220;
-    --hero-bg-end: #0f1a2b;
-    --accent-blue: #2f80ff;
-
-    --chart-1: 0.488 0.243 264.376;
-    --chart-2: 0.696 0.17 162.48;
-    --chart-3: 0.769 0.188 70.08;
-    --chart-4: 0.627 0.265 303.9;
-    --chart-5: 0.645 0.246 16.439;
-    --sidebar: 0.145 0.027 255;
-    --sidebar-foreground: 0.94 0.018 255;
-    --sidebar-primary: 0.55 0.18 255;
-    --sidebar-primary-foreground: 0.985 0 0;
-    --sidebar-accent: 0.18 0.03 255;
-    --sidebar-accent-foreground: 0.94 0.018 255;
-    --sidebar-border: 0.24 0.038 250;
-    --sidebar-ring: 0.55 0.18 255;
+    --bg-base: #0b1220;
+    --bg-alt: #0d1628;
+    --card-bg: oklch(0.15 0.028 255);
+    --card-border: oklch(0.24 0.038 250);
+    --accent: #2f80ff;
+    --accent-oklch: oklch(0.55 0.18 255);
+    --text-primary: oklch(0.94 0.018 255);
+    --text-secondary: oklch(0.72 0.022 255);
+    --text-muted: oklch(0.55 0.015 255);
   }
 
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
 
   html {
     scroll-behavior: smooth;
@@ -61,141 +28,240 @@
   }
 
   body {
-    @apply bg-background text-foreground;
     font-family: "Inter", sans-serif;
-    background: linear-gradient(135deg, #0b1220 0%, #0f1a2b 100%);
+    background: linear-gradient(160deg, #0b1220 0%, #0e1830 50%, #0b1220 100%);
+    background-attachment: fixed;
     min-height: 100vh;
+    color: var(--text-primary);
   }
 }
 
-/* ─── Hero section ─── */
+/* ─── Shared card styles ─── */
+.portfolio-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  position: relative;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.portfolio-card:hover {
+  border-color: oklch(0.55 0.18 255 / 0.45);
+  box-shadow: 0 4px 24px oklch(0.55 0.18 255 / 0.1);
+  transform: translateY(-2px);
+}
+
+.portfolio-card-static {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+
+/* ─── Alternating section background ─── */
+.section-alt {
+  background: oklch(0.13 0.025 255 / 0.5);
+}
+
+/* ─── Section labels ─── */
+.sub-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-oklch);
+}
+
+/* ─── Badge system ─── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.badge-blue {
+  background: oklch(0.55 0.18 255 / 0.12);
+  border: 1px solid oklch(0.55 0.18 255 / 0.3);
+  color: var(--accent);
+}
+
+.badge-muted {
+  background: oklch(0.18 0.03 255);
+  border: 1px solid oklch(0.28 0.04 255);
+  color: oklch(0.70 0.022 255);
+}
+
+.badge-success {
+  background: oklch(0.48 0.17 145 / 0.12);
+  border: 1px solid oklch(0.48 0.17 145 / 0.4);
+  color: oklch(0.78 0.16 145);
+}
+
+.badge-ghost {
+  background: oklch(0.20 0.03 255 / 0.6);
+  border: 1px solid oklch(0.26 0.04 255 / 0.5);
+  color: oklch(0.65 0.02 255);
+}
+
+/* ─── Skill pills ─── */
+.skill-pill {
+  background: oklch(0.18 0.03 255);
+  border: 1px solid oklch(0.28 0.04 255);
+  color: oklch(0.84 0.02 255);
+  @apply text-xs font-medium px-3 py-1.5 rounded-full;
+  transition: all 0.2s ease;
+}
+.skill-pill:hover {
+  background: oklch(0.22 0.05 255);
+  border-color: oklch(0.55 0.18 255 / 0.6);
+  color: oklch(0.94 0.018 255);
+}
+
+/* ─── Section heading ─── */
+.section-heading {
+  @apply text-2xl sm:text-3xl font-bold;
+  color: oklch(0.94 0.018 255);
+  font-family: "Bricolage Grotesque", "Inter", sans-serif;
+}
+.section-heading span {
+  color: var(--accent);
+}
+
+/* ─── Navbar ─── */
+.navbar-root {
+  background: oklch(0.10 0.022 255 / 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid oklch(0.22 0.038 250 / 0.5);
+  box-shadow: 0 1px 0 oklch(0.22 0.038 250 / 0.3), 0 4px 24px oklch(0.07 0.02 255 / 0.4);
+}
+
+.navbar-accent-line {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(0.55 0.18 255 / 0.7) 30%,
+    oklch(0.68 0.15 200 / 0.9) 60%,
+    transparent 100%
+  );
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.navbar-logo-box {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, oklch(0.55 0.18 255) 0%, oklch(0.42 0.16 240) 100%);
+  box-shadow: 0 0 16px oklch(0.55 0.18 255 / 0.5), inset 0 1px 0 oklch(1 0 0 / 0.2);
+  transition: box-shadow 0.3s;
+}
+.navbar-logo-box:hover {
+  box-shadow: 0 0 24px oklch(0.55 0.18 255 / 0.7), inset 0 1px 0 oklch(1 0 0 / 0.2);
+}
+
+.navbar-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: white;
+  background: linear-gradient(135deg, oklch(0.55 0.18 255) 0%, oklch(0.48 0.16 230) 100%);
+  box-shadow: 0 2px 12px oklch(0.55 0.18 255 / 0.35);
+  transition: all 0.22s ease;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.navbar-cta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px oklch(0.55 0.18 255 / 0.5);
+}
+
+.nav-link {
+  @apply text-sm font-medium transition-colors duration-200;
+  color: oklch(0.7 0.022 255);
+}
+.nav-link:hover {
+  color: oklch(0.94 0.018 255);
+  background: oklch(0.55 0.18 255 / 0.08);
+}
+
+/* ─── Hero ─── */
 @keyframes orb-float-1 {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(30px, -40px) scale(1.08);
-  }
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -40px) scale(1.08); }
 }
 @keyframes orb-float-2 {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(-25px, 35px) scale(1.06);
-  }
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-25px, 35px) scale(1.06); }
 }
 @keyframes orb-float-3 {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(20px, 25px) scale(1.04);
-  }
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, 25px) scale(1.04); }
 }
 @keyframes avatar-ring-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .hero-orb-1 {
-  position: absolute;
-  top: -80px;
-  left: -60px;
-  width: 480px;
-  height: 480px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    oklch(0.55 0.18 255 / 0.12) 0%,
-    transparent 70%
-  );
+  position: absolute; top: -80px; left: -60px;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, oklch(0.55 0.18 255 / 0.12) 0%, transparent 70%);
   animation: orb-float-1 12s ease-in-out infinite;
   pointer-events: none;
 }
 .hero-orb-2 {
-  position: absolute;
-  bottom: -100px;
-  right: -80px;
-  width: 520px;
-  height: 520px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    oklch(0.55 0.18 255 / 0.09) 0%,
-    transparent 70%
-  );
+  position: absolute; bottom: -100px; right: -80px;
+  width: 620px; height: 620px; border-radius: 50%;
+  background: radial-gradient(circle, oklch(0.55 0.18 255 / 0.09) 0%, transparent 70%);
   animation: orb-float-2 16s ease-in-out infinite;
   pointer-events: none;
 }
 .hero-orb-3 {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    oklch(0.48 0.17 145 / 0.07) 0%,
-    transparent 70%
-  );
+  position: absolute; top: 40%; left: 50%;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, oklch(0.48 0.17 145 / 0.07) 0%, transparent 70%);
   animation: orb-float-3 10s ease-in-out infinite;
   pointer-events: none;
 }
 .hero-grid-dots {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(
-    circle,
-    oklch(0.55 0.18 255 / 0.11) 1px,
-    transparent 1px
-  );
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, oklch(0.55 0.18 255 / 0.11) 1px, transparent 1px);
   background-size: 36px 36px;
-  mask-image: radial-gradient(
-    ellipse 80% 70% at 50% 50%,
-    black 30%,
-    transparent 100%
-  );
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
   pointer-events: none;
 }
-/* Subtle scanline effect */
 .hero-scanlines {
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   background: repeating-linear-gradient(
     0deg,
-    transparent,
-    transparent 3px,
-    oklch(0.55 0.18 255 / 0.015) 3px,
-    oklch(0.55 0.18 255 / 0.015) 4px
+    transparent, transparent 3px,
+    oklch(0.55 0.18 255 / 0.015) 3px, oklch(0.55 0.18 255 / 0.015) 4px
   );
   pointer-events: none;
 }
 
-/* Avatar ring v2 — dramatic wider ring */
+/* Avatar ring */
 .avatar-ring-outer-v2 {
-  position: absolute;
-  inset: -20px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    oklch(0.55 0.18 255 / 0.22) 0%,
-    transparent 65%
-  );
+  position: absolute; inset: -20px; border-radius: 50%;
+  background: radial-gradient(circle, oklch(0.55 0.18 255 / 0.22) 0%, transparent 65%);
   animation: orb-float-3 6s ease-in-out infinite;
 }
 .avatar-ring-spin-v2 {
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
+  position: absolute; inset: -8px; border-radius: 50%;
   background: conic-gradient(
     from 0deg,
     oklch(0.55 0.18 255) 0%,
@@ -211,169 +277,44 @@
 }
 .avatar-ring-spin-v2::before {
   content: "";
-  position: absolute;
-  inset: 7px;
-  border-radius: 50%;
-  background: oklch(0.11 0.025 255);
+  position: absolute; inset: 7px; border-radius: 50%;
+  background: #0e1830;
   z-index: 6;
 }
 
-/* Hero name gradient */
+/* Hero name */
 .hero-name-gradient {
-  background: linear-gradient(
-    135deg,
-    oklch(0.95 0.015 255) 0%,
-    #2f80ff 45%,
-    oklch(0.78 0.15 200) 100%
-  );
+  background: linear-gradient(135deg, oklch(0.95 0.015 255) 0%, #2f80ff 45%, oklch(0.78 0.15 200) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   filter: drop-shadow(0 0 24px oklch(0.55 0.18 255 / 0.35));
 }
 
-/* Contact chips (kept for backward compat) */
-.contact-chip {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 14px;
-  border-radius: 99px;
-  background: oklch(0.16 0.028 255 / 0.8);
-  border: 1px solid oklch(0.26 0.04 255 / 0.7);
-  color: oklch(0.75 0.022 255);
-  font-size: 11.5px;
-  font-weight: 500;
-  transition: all 0.22s ease;
-  text-decoration: none;
-  backdrop-filter: blur(8px);
-}
-.contact-chip:hover {
-  background: oklch(0.21 0.04 255 / 0.9);
-  border-color: oklch(0.55 0.18 255 / 0.55);
-  color: oklch(0.94 0.018 255);
-  box-shadow: 0 0 16px oklch(0.55 0.18 255 / 0.18);
-  transform: translateX(3px);
-}
-.contact-chip-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: oklch(0.55 0.18 255 / 0.18);
-  color: oklch(0.65 0.18 255);
-  flex-shrink: 0;
-  transition: background 0.22s;
-}
-.contact-chip:hover .contact-chip-icon {
-  background: oklch(0.55 0.18 255 / 0.3);
-  color: oklch(0.8 0.18 255);
-}
-
-/* Stat cards */
-.stat-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 14px 16px;
-  border-radius: 12px;
-  background: oklch(0.155 0.028 255 / 0.7);
-  border: 1px solid oklch(0.26 0.04 255 / 0.6);
-  backdrop-filter: blur(8px);
-  transition: all 0.25s ease;
-}
-.stat-card:hover {
-  border-color: oklch(0.55 0.18 255 / 0.45);
-  box-shadow: 0 0 20px oklch(0.55 0.18 255 / 0.12);
-}
-
-/* Stat card v2 */
-.stat-card-v2 {
-  backdrop-filter: blur(10px);
-  transition: all 0.25s ease;
-}
-.stat-card-v2:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px oklch(0.55 0.18 255 / 0.15);
-}
-
-/* Contact bar */
-.contact-bar {
-  width: 100%;
-  padding: 14px 16px;
-  background: oklch(0.13 0.025 255 / 0.85);
-  border-top: 1px solid oklch(0.24 0.038 250 / 0.6);
-  border-bottom: 1px solid oklch(0.24 0.038 250 / 0.4);
-  backdrop-filter: blur(12px);
-}
-.contact-bar-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11.5px;
-  font-weight: 500;
-  color: oklch(0.6 0.018 255);
-  padding: 4px 10px;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-  cursor: default;
-}
-a .contact-bar-item {
-  cursor: pointer;
-}
-a:hover .contact-bar-item {
-  color: oklch(0.82 0.16 255);
-  background: oklch(0.55 0.18 255 / 0.1);
-  box-shadow: 0 0 12px oklch(0.55 0.18 255 / 0.15);
-}
-.contact-bar-divider {
-  color: oklch(0.3 0.02 255);
-  font-size: 14px;
-  user-select: none;
-  padding: 0 2px;
-}
-
 /* Hero buttons */
 .hero-btn-primary {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 11px 22px;
-  border-radius: 10px;
-  font-size: 13.5px;
-  font-weight: 700;
-  color: white;
-  background: linear-gradient(
-    135deg,
-    oklch(0.55 0.18 255) 0%,
-    oklch(0.48 0.16 230) 100%
-  );
-  box-shadow: 0 4px 20px oklch(0.55 0.18 255 / 0.4), inset 0 1px 0
-    oklch(1 0 0 / 0.15);
-  transition: all 0.22s ease;
-  border: none;
-  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 24px; border-radius: 10px;
+  font-size: 13.5px; font-weight: 700; color: white;
+  background: linear-gradient(135deg, oklch(0.55 0.18 255) 0%, oklch(0.48 0.16 230) 100%);
+  box-shadow: 0 4px 20px oklch(0.55 0.18 255 / 0.4), inset 0 1px 0 oklch(1 0 0 / 0.15);
+  transition: all 0.22s ease; border: none; cursor: pointer;
+  text-decoration: none;
 }
 .hero-btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 28px oklch(0.55 0.18 255 / 0.5);
 }
 .hero-btn-outline {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 11px 22px;
-  border-radius: 10px;
-  font-size: 13.5px;
-  font-weight: 700;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 24px; border-radius: 10px;
+  font-size: 13.5px; font-weight: 700;
   color: oklch(0.65 0.18 255);
   background: oklch(0.16 0.028 255 / 0.6);
   border: 1px solid oklch(0.55 0.18 255 / 0.45);
   backdrop-filter: blur(8px);
-  transition: all 0.22s ease;
-  cursor: pointer;
+  transition: all 0.22s ease; cursor: pointer;
+  text-decoration: none;
 }
 .hero-btn-outline:hover {
   transform: translateY(-2px);
@@ -383,81 +324,44 @@ a:hover .contact-bar-item {
   box-shadow: 0 4px 20px oklch(0.55 0.18 255 / 0.2);
 }
 
-/* ─── Navbar ─── */
-.navbar-accent-line {
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    oklch(0.55 0.18 255 / 0.6) 30%,
-    oklch(0.68 0.15 200 / 0.8) 60%,
-    transparent 100%
-  );
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+/* Contact bar */
+.contact-bar {
+  width: 100%;
+  padding: 12px 16px;
+  background: oklch(0.12 0.024 255 / 0.85);
+  border-top: 1px solid oklch(0.24 0.038 250 / 0.5);
+  border-bottom: 1px solid oklch(0.24 0.038 250 / 0.3);
+  backdrop-filter: blur(12px);
 }
-.navbar-logo-box {
-  width: 34px;
-  height: 34px;
-  border-radius: 9px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(
-    135deg,
-    oklch(0.55 0.18 255) 0%,
-    oklch(0.42 0.16 240) 100%
-  );
-  box-shadow: 0 0 16px oklch(0.55 0.18 255 / 0.5), inset 0 1px 0
-    oklch(1 0 0 / 0.2);
-  position: relative;
-  transition: box-shadow 0.3s;
+.contact-bar-item {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11.5px; font-weight: 500;
+  color: oklch(0.6 0.018 255);
+  padding: 4px 10px; border-radius: 6px;
+  transition: all 0.2s ease; cursor: default;
 }
-.navbar-logo-box:hover {
-  box-shadow: 0 0 24px oklch(0.55 0.18 255 / 0.7), inset 0 1px 0
-    oklch(1 0 0 / 0.2);
+a .contact-bar-item { cursor: pointer; }
+a:hover .contact-bar-item {
+  color: oklch(0.82 0.16 255);
+  background: oklch(0.55 0.18 255 / 0.1);
 }
-.navbar-cta-btn {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 8px 18px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  color: white;
-  background: linear-gradient(
-    135deg,
-    oklch(0.55 0.18 255) 0%,
-    oklch(0.48 0.16 230) 100%
-  );
-  box-shadow: 0 2px 12px oklch(0.55 0.18 255 / 0.35);
-  transition: all 0.22s ease;
-  border: none;
-  cursor: pointer;
-}
-.navbar-cta-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 20px oklch(0.55 0.18 255 / 0.5);
+.contact-bar-divider {
+  color: oklch(0.3 0.02 255);
+  font-size: 14px; user-select: none; padding: 0 2px;
 }
 
+/* Stat cards */
+.stat-card-v2 {
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+.stat-card-v2:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px oklch(0.55 0.18 255 / 0.15);
+}
+
+/* ─── Utilities ─── */
 @layer utilities {
-  .panel-shadow {
-    box-shadow: 0 0 0 1px oklch(0.24 0.038 250), 0 4px 32px
-      oklch(0.07 0.02 255 / 0.6), inset 0 1px 0 oklch(0.28 0.04 255 / 0.4);
-  }
-
-  .card-glow {
-    box-shadow: 0 2px 12px oklch(0.07 0.02 255 / 0.4);
-  }
-
-  .accent-glow {
-    box-shadow: 0 0 20px oklch(0.55 0.18 255 / 0.3);
-  }
-
   .timeline-dot {
     background: #2f80ff;
     box-shadow: 0 0 12px oklch(0.55 0.18 255 / 0.5);
@@ -470,49 +374,7 @@ a:hover .contact-bar-item {
     background-clip: text;
   }
 
-  .nav-link {
-    @apply text-sm font-medium transition-colors duration-200;
-    color: oklch(0.7 0.022 255);
-  }
-
-  .nav-link:hover {
-    color: oklch(0.94 0.018 255);
-    background: oklch(0.55 0.18 255 / 0.08);
-  }
-
-  .skill-pill {
-    background: oklch(0.18 0.03 255);
-    border: 1px solid oklch(0.28 0.04 255);
-    color: oklch(0.84 0.02 255);
-    @apply text-xs font-medium px-3 py-1.5 rounded-full;
-    transition: all 0.2s;
-  }
-
-  .skill-pill:hover {
-    background: oklch(0.22 0.05 255);
-    border-color: oklch(0.55 0.18 255 / 0.6);
-    color: oklch(0.94 0.018 255);
-  }
-
-  .section-heading {
-    @apply text-2xl font-bold mb-8;
-    color: oklch(0.94 0.018 255);
-  }
-
-  .section-heading span {
-    color: #2f80ff;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: oklch(0.14 0.027 255);
-  }
-
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: oklch(0.28 0.04 255);
-    border-radius: 2px;
-  }
+  .scrollbar-thin::-webkit-scrollbar { width: 4px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: oklch(0.14 0.027 255); }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: oklch(0.28 0.04 255); border-radius: 2px; }
 }

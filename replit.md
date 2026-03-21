@@ -1,47 +1,79 @@
 # Caffeine Portfolio App
 
-A portfolio website for Ashish Sah, exported from [Caffeine](https://caffeine.ai/). Built with React + Vite + TypeScript, styled with Tailwind CSS.
+A full-width, animated portfolio website for Ashish Sah. Built with React 19, Vite, TypeScript, and Tailwind CSS. Exported from [Caffeine](https://caffeine.ai/) and refactored with reusable components and a full-width layout.
 
 ## Project Structure
 
 ```
 src/
-  frontend/         # React + Vite frontend (main app)
+  frontend/
     src/
-      components/portfolio/  # Portfolio section components (Hero, Skills, Experience, etc.)
-      data/portfolioData.ts   # Static portfolio data
-      mocks/backend.ts        # Mock backend for local/Replit use
+      components/
+        ui/                   # Shared reusable components
+          Badge.tsx           # Pill/badge with blue, muted, success, ghost variants
+          Card.tsx            # Animated card with hover effects and viewport animation
+          Section.tsx         # Full-width section wrapper with max-w-7xl container
+          SectionHeader.tsx   # Section heading with blue accent word + optional subtitle
+          index.ts            # Barrel export
+        portfolio/            # Page sections
+          Navbar.tsx
+          Hero.tsx
+          Skills.tsx
+          Experience.tsx
+          Projects.tsx
+          Certifications.tsx
+          Achievements.tsx
+          Footer.tsx
+          SectionDivider.tsx
+      data/
+        portfolioData.ts      # All portfolio content (edit here to customize)
+      mocks/
+        backend.ts            # Mock backend for dev (used when VITE_USE_MOCK=true)
       hooks/                  # React Query hooks for data fetching
-      config.ts               # Backend/actor configuration
-      backend.ts              # Auto-generated ICP canister bindings
-  backend/          # Motoko canister (ICP backend - not used in Replit)
+      App.tsx                 # Root layout — no card wrapper, full-width
+      main.tsx
+      index.css               # Design tokens + global styles + component CSS
+  backend/                    # Motoko ICP canister (not used in Replit)
 ```
 
-## Tech Stack
+## Architecture Decisions
 
-- **Frontend**: React 19, Vite 5, TypeScript, Tailwind CSS, Radix UI
-- **State/Data**: TanStack Query, TanStack Router
-- **3D**: Three.js, React Three Fiber
-- **Backend (ICP)**: Motoko canister (requires DFX toolchain to run locally)
+- **Full-width layout**: Removed the boxed card wrapper. All sections use `max-w-7xl` containers.
+- **Reusable components**: `Card`, `Badge`, `Section`, `SectionHeader` eliminate repetition.
+- **Mock backend**: `VITE_USE_MOCK=true` loads `src/mocks/backend.ts` which serves static data from `portfolioData.ts`. No ICP canister needed.
+- **Design tokens**: CSS variables defined in `:root {}` in `index.css` for consistent theming.
+- **Alternating sections**: `section-alt` class provides subtle background variation for visual rhythm.
 
-## Running Locally in Replit
+## Running in Replit
 
-The frontend runs with a mock backend enabled via `VITE_USE_MOCK=true`. This bypasses the ICP canister and serves static portfolio data from `src/frontend/src/data/portfolioData.ts`.
-
-The workflow command is:
+Workflow command:
 ```
 cd src/frontend && VITE_USE_MOCK=true pnpm exec vite --port 5000 --host 0.0.0.0
 ```
 
+## How to Run Locally
+
+Requirements: Node.js v18+, pnpm v8+
+
+```bash
+# Install dependencies from root
+pnpm install
+
+# Start dev server
+cd src/frontend && VITE_USE_MOCK=true pnpm exec vite
+
+# Open http://localhost:5173
+```
+
 ## Deployment
 
-Configured as a **static** deployment:
-- **Build**: `cd src/frontend && VITE_USE_MOCK=true pnpm exec vite build`
-- **Public dir**: `src/frontend/dist`
+Configured as a static deployment:
+- Build: `cd src/frontend && VITE_USE_MOCK=true pnpm exec vite build`
+- Public dir: `src/frontend/dist`
 
-## Key Notes
+## Tech Stack
 
-- Node.js 20 is required (upgraded from default 16)
-- The `src/backend/` Motoko canister requires the DFX/ICP toolchain which is not available in Replit
-- Font: Bricolage Grotesque loaded via Google Fonts (replaced local woff2 reference)
-- The mock backend in `src/frontend/src/mocks/backend.ts` implements the `backendInterface` using static data
+- React 19, Vite 5, TypeScript
+- Tailwind CSS v3, Radix UI
+- TanStack Query v5, Motion (Framer Motion v12)
+- Lucide React icons, Node.js 20
