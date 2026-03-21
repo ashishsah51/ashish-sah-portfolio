@@ -454,6 +454,13 @@ a:hover .contact-bar-item {
 }
 .summary-display:hover .summary-display-hint { opacity: 1; }
 
+.summary-display-static {
+  background: oklch(0.13 0.025 255);
+  border: 1px solid oklch(0.24 0.038 250 / 0.6);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+
 /* ─── Notes section ─── */
 .notes-input {
   resize: none; border-radius: 12px; outline: none;

@@ -10,17 +10,36 @@ export const personalInfo = {
 };
 
 export const heroRoles = [
-  "Senior Software Engineer",
-  "Salesforce Ecosystem Expert",
-  "AI Integration Specialist",
-  "Competitive Programmer",
-  "Cloud Automation Architect",
+  "I'm a Software Engineer",
+  "I'm a Coder",
+  "I'm an Architect",
+  "I'm a Cloud Developer",
+  "I'm an AI Enthusiast",
+  "I'm a Problem Solver",
 ];
 
 export const profileSummary =
   "Strategic Senior Software Engineer with nearly 3 years of experience specializing in the Salesforce Ecosystem (Sales, Marketing, and Data Cloud). Expert in designing API-driven automation, real-time data integrations, and scalable CRM architectures. Elite competitive programmer (1,500+ problems solved, LeetCode Guardian) with a proven ability to optimize complex Apex logic and deliver high-performance, revenue-impacting Salesforce solutions for the financial services and MarTech sectors.";
 
 export const skillCategories = [
+  {
+    category: "Core Engineering",
+    icon: "⚙️",
+    skills: [
+      "Core Java",
+      "JavaScript",
+      "SQL",
+      "Spring Boot",
+      "Microservices",
+      "REST APIs",
+      "Git",
+      "CI/CD",
+      "OOP",
+      "DSA",
+      "System Architecture",
+      "React",
+    ],
+  },
   {
     category: "Salesforce Ecosystem",
     icon: "☁️",
@@ -48,7 +67,6 @@ export const skillCategories = [
       "CloudPages",
       "Braze Integration",
       "Treasure Data",
-      "REST / SOAP APIs",
       "ETL Pipelines",
       "CDP Integration",
     ],
@@ -64,22 +82,6 @@ export const skillCategories = [
       "Prompt Engineering",
       "AI-Driven CRM Analytics",
       "AI Automation",
-    ],
-  },
-  {
-    category: "Core Engineering",
-    icon: "⚙️",
-    skills: [
-      "Core Java",
-      "JavaScript",
-      "SQL",
-      "Spring Boot",
-      "Microservices",
-      "Git",
-      "CI/CD",
-      "OOP",
-      "DSA",
-      "System Architecture",
     ],
   },
 ];
