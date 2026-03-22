@@ -48,28 +48,60 @@ src/
 
 Workflow command:
 ```
-cd src/frontend && VITE_USE_MOCK=true pnpm exec vite --port 5000 --host 0.0.0.0
+cd src/frontend && npm run dev -- --port 5000 --host 0.0.0.0
 ```
 
 ## How to Run Locally
 
-Requirements: Node.js v18+, pnpm v8+
+Requirements: Node.js v18+, npm v8+
 
 ```bash
-# Install dependencies from root
-pnpm install
+# 1. Install dependencies
+cd src/frontend
+npm install
 
-# Start dev server
-cd src/frontend && VITE_USE_MOCK=true pnpm exec vite
+# 2. Start the dev server
+npm run dev
 
-# Open http://localhost:5173
+# 3. Open http://localhost:5173
 ```
 
-## Deployment
+The `VITE_USE_MOCK=true` flag is built into the `dev` script — no ICP canister setup needed.
 
-Configured as a static deployment:
-- Build: `cd src/frontend && VITE_USE_MOCK=true pnpm exec vite build`
-- Public dir: `src/frontend/dist`
+## How to Deploy (Live / Production)
+
+### Option A — Replit Deploy (easiest)
+
+1. Click **Deploy** in Replit
+2. Build command: `cd src/frontend && npm run build`
+3. Public directory: `src/frontend/dist`
+4. The built site in `dist/` is plain HTML/CSS/JS — host anywhere (Netlify, Vercel, GitHub Pages, etc.)
+
+### Option B — Build Manually & Host Anywhere
+
+```bash
+# Build for production
+cd src/frontend
+npm run build
+# Output is in src/frontend/dist/
+
+# Preview the production build locally
+npx serve dist
+# Open http://localhost:3000
+```
+
+Then upload the `dist/` folder to:
+- **Netlify**: drag-and-drop `dist/` on netlify.com/drop
+- **Vercel**: `npx vercel --prod` from `src/frontend`
+- **GitHub Pages**: push `dist/` to the `gh-pages` branch
+
+## npm Scripts (inside `src/frontend`)
+
+| Command | What it does |
+|---|---|
+| `npm run dev` | Start local dev server with mock data |
+| `npm run build` | Production build → `dist/` |
+| `npm run typecheck` | TypeScript type checking |
 
 ## Tech Stack
 
