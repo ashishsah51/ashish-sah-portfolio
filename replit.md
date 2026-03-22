@@ -1,6 +1,6 @@
 # Caffeine Portfolio App
 
-A full-width, animated portfolio website for Ashish Sah. Built with React 19, Vite, TypeScript, and Tailwind CSS. Exported from [Caffeine](https://caffeine.ai/) and refactored with reusable components and a full-width layout.
+A full-width, animated portfolio website for Ashish Sah. Built with React 19, Vite, TypeScript, and Tailwind CSS.
 
 ## Project Structure
 
@@ -10,45 +10,17 @@ src/
     src/
       components/
         ui/                   # Shared reusable components
-          Badge.tsx           # Pill/badge with blue, muted, success, ghost variants
-          Card.tsx            # Animated card with hover effects and viewport animation
-          Section.tsx         # Full-width section wrapper with max-w-7xl container
-          SectionHeader.tsx   # Section heading with blue accent word + optional subtitle
-          index.ts            # Barrel export
-        portfolio/            # Page sections
-          Navbar.tsx
-          Hero.tsx
-          Skills.tsx
-          Experience.tsx
-          Projects.tsx
-          Certifications.tsx
-          Achievements.tsx
-          Footer.tsx
-          SectionDivider.tsx
+        portfolio/            # Page sections (Hero, Skills, Experience, etc.)
       data/
-        portfolioData.ts      # All portfolio content (edit here to customize)
+        portfolioData.ts      # All portfolio content — edit here to customise
       mocks/
-        backend.ts            # Mock backend for dev (used when VITE_USE_MOCK=true)
-      hooks/                  # React Query hooks for data fetching
-      App.tsx                 # Root layout — no card wrapper, full-width
+        backend.ts            # Mock backend (used when VITE_USE_MOCK=true)
+      hooks/                  # React Query hooks
+      App.tsx
       main.tsx
-      index.css               # Design tokens + global styles + component CSS
-  backend/                    # Motoko ICP canister (not used in Replit)
-```
-
-## Architecture Decisions
-
-- **Full-width layout**: Removed the boxed card wrapper. All sections use `max-w-7xl` containers.
-- **Reusable components**: `Card`, `Badge`, `Section`, `SectionHeader` eliminate repetition.
-- **Mock backend**: `VITE_USE_MOCK=true` loads `src/mocks/backend.ts` which serves static data from `portfolioData.ts`. No ICP canister needed.
-- **Design tokens**: CSS variables defined in `:root {}` in `index.css` for consistent theming.
-- **Alternating sections**: `section-alt` class provides subtle background variation for visual rhythm.
-
-## Running in Replit
-
-Workflow command:
-```
-cd src/frontend && npm run dev -- --port 5000 --host 0.0.0.0
+      index.css               # Design tokens + global styles
+  backend/                    # Motoko ICP canister (not used locally)
+package.json                  # Root — delegates all scripts to src/frontend
 ```
 
 ## How to Run Locally
@@ -56,7 +28,7 @@ cd src/frontend && npm run dev -- --port 5000 --host 0.0.0.0
 Requirements: Node.js v18+, npm v8+
 
 ```bash
-# 1. Install dependencies
+# 1. Clone the repo and install frontend dependencies
 cd src/frontend
 npm install
 
@@ -66,42 +38,57 @@ npm run dev
 # 3. Open http://localhost:5173
 ```
 
-The `VITE_USE_MOCK=true` flag is built into the `dev` script — no ICP canister setup needed.
+Or from the project root:
+```bash
+npm install --prefix src/frontend
+npm run dev        # delegates to src/frontend automatically
+```
+
+`VITE_USE_MOCK=true` is already built into the `dev` script — no ICP canister setup needed.
 
 ## How to Deploy (Live / Production)
 
 ### Option A — Replit Deploy (easiest)
 
-1. Click **Deploy** in Replit
-2. Build command: `cd src/frontend && npm run build`
-3. Public directory: `src/frontend/dist`
-4. The built site in `dist/` is plain HTML/CSS/JS — host anywhere (Netlify, Vercel, GitHub Pages, etc.)
+Click **Deploy** in Replit. Settings are already configured:
+- Build: `cd src/frontend && npm run build`
+- Publish directory: `src/frontend/dist`
 
-### Option B — Build Manually & Host Anywhere
+### Option B — Any Static Host (Netlify, Vercel, GitHub Pages)
 
 ```bash
-# Build for production
 cd src/frontend
+npm install
 npm run build
-# Output is in src/frontend/dist/
-
-# Preview the production build locally
-npx serve dist
-# Open http://localhost:3000
+# Output is in src/frontend/dist/ — upload this folder
 ```
 
-Then upload the `dist/` folder to:
-- **Netlify**: drag-and-drop `dist/` on netlify.com/drop
-- **Vercel**: `npx vercel --prod` from `src/frontend`
-- **GitHub Pages**: push `dist/` to the `gh-pages` branch
+**Netlify:** drag-and-drop `dist/` at netlify.com/drop  
+**Vercel:** `npx vercel --prod` from `src/frontend`  
+**GitHub Pages:** push `dist/` to the `gh-pages` branch
 
-## npm Scripts (inside `src/frontend`)
+## npm Scripts
+
+Run from the **project root** or from `src/frontend` — both work.
 
 | Command | What it does |
 |---|---|
 | `npm run dev` | Start local dev server with mock data |
-| `npm run build` | Production build → `dist/` |
-| `npm run typecheck` | TypeScript type checking |
+| `npm run build` | Production build → `src/frontend/dist/` |
+| `npm run typecheck` | TypeScript type-check |
+
+## Running in Replit
+
+Workflow command:
+```
+cd src/frontend && npm run dev -- --port 5000 --host 0.0.0.0
+```
+
+## Architecture Decisions
+
+- **Mock backend**: `VITE_USE_MOCK=true` serves static data from `portfolioData.ts`. No ICP canister needed.
+- **Full-width layout**: All sections use `max-w-7xl` containers.
+- **Design tokens**: CSS variables in `:root {}` in `index.css` for consistent theming.
 
 ## Tech Stack
 
